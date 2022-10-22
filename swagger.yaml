@@ -7,7 +7,7 @@ info:
     Useful links:
     - [The OpenAPI repository](https://github.com/domkoc/GGApp-OpenAPI)
     
-  version: 1.0.0
+  version: 0.1.0
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
@@ -29,11 +29,11 @@ paths:
       description: Create new lobby by providing a username
       operationId: createLobby
       requestBody:
-        description: Create lobby for username
+        description: Create lobby for username with null id
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createLobbyDTO'
+              $ref: '#/components/schemas/LobbyDTO'
         required: true
       responses:
         '200':
@@ -41,7 +41,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/joinLobbyDTO'
+                $ref: '#/components/schemas/LobbyDTO'
   /lobby/join:
     post:
       tags:
@@ -54,7 +54,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/joinLobbyDTO'
+              $ref: '#/components/schemas/LobbyDTO'
         required: true
       responses:
         '200':
@@ -62,48 +62,100 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/joinLobbyDTO'
-  /lobby/{id}:
+                $ref: '#/components/schemas/LobbyDTO'
+  /game/{lobby_id}:
     get:
       tags:
-        - Lobby
+        - Game
       summary: Poll lobby state
       description: Poll current state of a lobby by id
-      operationId: getLobby
+      operationId: getGameState
       responses:
         '200':
           description: Successfully joined lobby with id or created one if didn't exist
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LobbyDTO'
+                $ref: '#/components/schemas/gameStateDTO'
+  /game/{lobby_id}/round:
+    get:
+      tags:
+        - Game
+      summary: Poll round tasks
+      description: Poll tasks of current round
+      operationId: getTasks
+      responses:
+        '200':
+          description: The tasks of the current round and their time limit
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/roundDTO'
+    post: 
+      tags:
+        - Game
+      summary: Post answers
+      description: Post the answers of the given round
+      operationId: postTasks
+      requestBody:
+        description: Post answers to tasks
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/answersDTO'
+        required: true
+      responses:
+        '200':
+          description: Successfully submitted answers
+  /scoreboard:
+    get:
+      tags:
+        - Scoreboard
+      summary: Poll scoreboard
+      description: Poll current state of scoreboard
+      operationId: getScoreboard
+      responses:
+        '200':
+          description: The scores of players currently on the scoreboard
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scoreboardDTO'
+    post: 
+      tags:
+        - Scoreboard
+      summary: Post score to scoreboard
+      description: Post the users score to the scoreboard
+      operationId: postScore
+      requestBody:
+        description: Lobby and username of score to post
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newScoreDTO'
+        required: true
+      responses:
+        '200':
+          description: Successfully submitted score
+
+
 components:
   schemas:
-    joinLobbyDTO:
-      type: object
-      properties:
-        username:
-          type: string
-          example: Player1
-        lobbyId:
-          type: string
-          example: 00000000-000000000000000
-    createLobbyDTO:
-      type: object
-      properties:
-        username:
-          type: string
-          example: Player1
-        lobbyId:
-          type: string
-          example: null
     LobbyDTO:
+      type: object
+      properties:
+        username:
+          type: string
+          example: Player1
+        lobbyId:
+          type: string
+    gameStateDTO:
       type: object
       properties:
         state:
           type: string
-          enum: [lobby, round, score, end]
-          example: score
+          enum: [lobby, start, round, score, end]
+          example: start
         players:
           type: object
           properties:
@@ -113,13 +165,57 @@ components:
               type: integer
             isPlaying:
               type: boolean
-          example:
-            - username: Player1
-              score: 1000
-              isPlaying: true
-            - username: Player2
-              score: 500
-              isPlaying: false
-            - username: Player3
-              score: 750
-              isPlaying: true
+    roundDTO:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            type: object
+            properties:
+              title: 
+                type: string
+              coordinates:
+                type: object
+                properties:
+                  longitude: 
+                    type: number
+                  lattitude: 
+                    type: number
+              seconds:
+                type: number
+    answersDTO:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            type: object
+            properties:
+              title: 
+                type: string
+              coordinates:
+                type: object
+                properties:
+                  longitude: 
+                    type: number
+                  lattitude: 
+                    type: number
+    scoreboardDTO:
+      type: object
+      properties:
+        players:
+          type: object
+          properties:
+            username: 
+              type: string
+            score:
+              type: integer
+    newScoreDTO:
+      type: object
+      properties:
+        lobby_id:
+          type: string
+        username:
+          type: string
+
