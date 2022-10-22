@@ -7,7 +7,7 @@ info:
     Useful links:
     - [The OpenAPI repository](https://github.com/domkoc/GGApp-OpenAPI)
     
-  version: 0.1.0
+  version: 0.1.1
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
@@ -42,6 +42,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/LobbyDTO'
+  /lobby/{lobby_id}/start:
+    post:
+      tags:
+        - Lobby
+      summary: Start lobby by id
+      description: Start the lobby with the given id
+      operationId: startLobby
+      responses:
+        '200':
+          description: Successfully started lobby with id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/gameStateDTO'
   /lobby/join:
     post:
       tags:
@@ -218,4 +232,3 @@ components:
           type: string
         username:
           type: string
-
