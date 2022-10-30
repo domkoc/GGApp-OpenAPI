@@ -219,12 +219,14 @@ components:
       type: object
       properties:
         players:
-          type: object
-          properties:
-            username: 
-              type: string
-            score:
-              type: integer
+          type: array
+          items:
+            type: object
+            properties:
+              username: 
+                type: string
+              score:
+                type: integer
     newScoreDTO:
       type: object
       properties:
