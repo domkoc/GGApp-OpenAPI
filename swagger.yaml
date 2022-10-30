@@ -12,7 +12,7 @@ externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
-  - url: localhost
+  - url: http://127.0.0.1:4010
 tags:
   - name: Lobby
     description: Everything that can be done before starting a game
