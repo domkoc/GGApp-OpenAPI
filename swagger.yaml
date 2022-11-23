@@ -201,6 +201,8 @@ components:
     answersDTO:
       type: object
       properties:
+        username:
+          type: string
         answers:
           type: array
           items:
