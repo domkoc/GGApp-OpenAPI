@@ -134,6 +134,8 @@ def round(request,id):
     for l in lobbies:
         if l.get_id()==id:
             lobby=l
+    if lobby==0:
+        return HttpResponseBadRequest(f'No lobby with id {id}')
     if request.method=='POST':
         body = json.loads(request.body)
         player=body['username']
@@ -141,11 +143,11 @@ def round(request,id):
         coordinates=ans[0]['coordinates']
         lat=coordinates['lattitude']
         long=coordinates['longitude']
-        l.calculate_score(lat,long,player)
+        lobby.calculate_score(lat,long,player)
         return HttpResponse('ok')
     if request.method=='GET':
         gtasks=[]
-        task=l.get_task()
+        task=lobby.get_task()
         gtasks.append({ 'title':'title',
                         'coordinates':{'lattitude':task['lat'],'longitude':task['long']},
                         'seconds':10
