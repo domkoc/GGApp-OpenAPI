@@ -123,7 +123,7 @@ def game(request,id):
         state=lobby.state
         for p in lobby.get_players():
             playerdata=lobby.get_player_data(p)
-            players.append({'username':p,'score':playerdata[0],'isPlaying':playerdata[1]})
+            players.append({'username':p,'score':playerdata[0],'isPlaying':playerdata[1],'hasSubmittedAnswer':playerdata[2]})
         return JsonResponse({'state':state,'players':players})
 
     return HttpResponseBadRequest('Only GET requests are allowed')
