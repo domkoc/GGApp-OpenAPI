@@ -32,7 +32,7 @@ class Lobby():
         if False not in readys:
             points=[]
             for p in self.players:
-                self.players[p][1]=False
+                self.players[p][2]=False
                 if self.players[p][1]==True: 
                     points.append(self.players[p][0])
             lowestscore=min(points)
