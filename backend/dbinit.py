@@ -1,22 +1,6 @@
 import mysql.connector
-import argparse
 
-parser=argparse.ArgumentParser()
-
-parser.add_argument('-u',metavar='u',type=str,required=True,help='username')
-parser.add_argument('-p',metavar='p',type=str,required=True,help='password')
-args=parser.parse_args()
-
-print(args)
-
-username=args.u
-password=args.p
-
-
-mydb = mysql.connector.connect( host="localhost",
-                                    user=username,
-                                    password=password,
-                                    )
+mydb = mysql.connector.connect(host="127.0.0.1", port="8889", user="root", password="root")
 
 cursor = mydb.cursor()
 

@@ -156,8 +156,9 @@ def round(request,id):
 
 def connectToDB():
     mydb = mysql.connector.connect( host="localhost",
-                                    user="backend",
-                                    password="backend",
+                                    port="8889",
+                                    user="root",
+                                    password="root",
                                     database='geoguesser'
                                     )
     return mydb

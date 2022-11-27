@@ -49,6 +49,13 @@ paths:
       summary: Start lobby by id
       description: Start the lobby with the given id
       operationId: startLobby
+      parameters:
+        - name: lobby_id
+          in: path
+          description: ID of lobby
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Successfully started lobby with id
@@ -84,6 +91,13 @@ paths:
       summary: Poll lobby state
       description: Poll current state of a lobby by id
       operationId: getGameState
+      parameters:
+        - name: lobby_id
+          in: path
+          description: ID of lobby
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: Successfully joined lobby with id or created one if didn't exist
@@ -98,6 +112,13 @@ paths:
       summary: Poll round tasks
       description: Poll tasks of current round
       operationId: getTasks
+      parameters:
+        - name: lobby_id
+          in: path
+          description: ID of lobby
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: The tasks of the current round and their time limit
@@ -111,6 +132,13 @@ paths:
       summary: Post answers
       description: Post the answers of the given round
       operationId: postTasks
+      parameters:
+        - name: lobby_id
+          in: path
+          description: ID of lobby
+          required: true
+          schema:
+            type: string
       requestBody:
         description: Post answers to tasks
         content:
