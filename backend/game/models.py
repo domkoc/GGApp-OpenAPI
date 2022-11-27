@@ -32,11 +32,12 @@ class Lobby():
         if False not in readys:
             points=[]
             for p in self.players:
+                self.players[p][1]=False
                 if self.players[p][1]==True: 
                     points.append(self.players[p][0])
             lowestscore=min(points)
             for p in self.players:
-                if (self.players[p][0] == lowestscore and self.players[p][0]>0) or len(lowestscore) < 3 :
+                if (self.players[p][0] == lowestscore and self.players[p][0]>0) or len(points) < 3 :
                     self.players[p][1]=False
                     return
 
@@ -51,7 +52,7 @@ class Lobby():
         print(distance)
         print(score)
         self.players[player][0] += score
-        self.players[player][2] += True
+        self.players[player][2] = True
 
     def add_player(self,player):
         self.players[player]=[0,True,False]
