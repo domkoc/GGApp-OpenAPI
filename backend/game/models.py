@@ -32,7 +32,7 @@ class Lobby():
             lowestscore=min(points)
 
             for p in self.players:
-                if self.players[p][0] == lowestscore and self.players[p][0]>0:
+                if (self.players[p][0] == lowestscore and self.players[p][0]>0) or len(points)<2:
                     self.players[p][1]=False
                     return
 
