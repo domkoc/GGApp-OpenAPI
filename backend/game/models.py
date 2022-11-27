@@ -67,4 +67,4 @@ class Lobby():
         return self.id
 
     def player_score(self, player):
-        return self.players[player]
+        return self.players[player][0]
