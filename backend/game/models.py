@@ -34,9 +34,10 @@ class Lobby():
         for p in self.players:
             if len(points) < 3:
                 self.players[p][1]=False
-            if self.players[p][0] == lowestscore:
-                self.players[p][1]=False
-                return
+            else:
+                if  self.players[p][0] == lowestscore:
+                    self.players[p][1]=False
+                    return
 
 
     def calculate_score(self,lat,long,player):
