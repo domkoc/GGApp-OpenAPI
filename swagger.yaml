@@ -199,14 +199,16 @@ components:
           enum: [lobby, start, round, score, end]
           example: start
         players:
-          type: object
-          properties:
-            username: 
-              type: string
-            score:
-              type: integer
-            isPlaying:
-              type: boolean
+          type: array
+          items:
+            type: object
+            properties:
+              username: 
+                type: string
+              score:
+                type: integer
+              isPlaying:
+                type: boolean
     roundDTO:
       type: object
       properties:
