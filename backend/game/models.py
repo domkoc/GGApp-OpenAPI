@@ -28,9 +28,12 @@ class Lobby():
     def dropLastPlayer(self):
         points=[]
         for p in self.players:
-            points.append(self.players[p][0])
+            if self.players[p][1]==True:
+                points.append(self.players[p][0])
         lowestscore=min(points)
         for p in self.players:
+            if len(points) < 3:
+                self.players[p][1]=False
             if self.players[p][0] == lowestscore:
                 self.players[p][1]=False
                 return
