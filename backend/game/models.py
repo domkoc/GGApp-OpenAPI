@@ -25,6 +25,17 @@ class Lobby():
     def get_player_data(self, player):
         return self.players[player]
 
+    def dropLastPlayer(self):
+        points=[]
+        for p in self.players:
+            points.append(self.players[p][0])
+        lowestscore=min(points)
+        for p in self.players:
+            if self.players[p][0] == lowestscore:
+                self.players[p][1]=False
+                return
+
+
     def calculate_score(self,lat,long,player):
         i=self.round-1
         task=self.task[i]

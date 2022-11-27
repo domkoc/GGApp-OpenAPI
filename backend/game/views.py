@@ -119,6 +119,7 @@ def game(request,id):
         if lobby==0:
             return HttpResponseBadRequest(f'No lobby with id {id}')
         players=[]
+        lobby.dropLastPlayer()
         state=lobby.state
         for p in lobby.get_players():
             playerdata=lobby.get_player_data(p)
