@@ -26,13 +26,13 @@ class Lobby():
         return self.players[player]
 
     def dropLastPlayer(self):
-        if self.round > 0:
             points=[]
             for p in self.players:
-                points.append(self.players[p][0])
+                if self.players[p][1]==True: points.append(self.players[p][0])
             lowestscore=min(points)
+
             for p in self.players:
-                if self.players[p][0] == lowestscore:
+                if self.players[p][0] == lowestscore and self.players[p][0]>0:
                     self.players[p][1]=False
                     return
 
@@ -43,7 +43,7 @@ class Lobby():
         diff1=lat-task['lat']
         diff2=long-task['long']
         distance=(diff1**2+diff2**2)
-        score=int(100*math.log(100+10000/max(1,distance),2))
+        score=int(100*math.log(100+10000/max(1,distance),2))+1
         print(distance)
         print(score)
         self.players[player][0] += score
