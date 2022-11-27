@@ -146,7 +146,7 @@ def round(request,id):
         gtasks=[]
         task=l.get_task()
         gtasks.append({ 'title':'title',
-                        'coordinates':{'longitude':task['long'],'lattitude':task['lat']},
+                        'coordinates':{'lattitude':task['lat']},'longitude':task['long'],
                         'seconds':10
                         })
         return JsonResponse({'tasks':gtasks})
